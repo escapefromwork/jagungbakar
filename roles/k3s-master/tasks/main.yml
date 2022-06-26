@@ -1,0 +1,3 @@
+---
+- include: download-binary.yml
+- include: install-master.yml
