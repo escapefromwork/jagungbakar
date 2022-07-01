@@ -23,6 +23,21 @@
     src: "k3s.service.j2"
     dest: "/etc/systemd/system/k3s.service"
     mode: 0644
+#
+# Silly things but work
+#
+- name: Enable and check K3s service (init master)
+  systemd:
+    name: k3s
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+  when: init_master == True
+  ignore_errors: true
+
+- name: pause, waiting master
+  pause:
+    seconds: 60
 
 - name: Enable and check K3s service
   systemd:
@@ -30,3 +45,5 @@
     daemon_reload: yes
     state: restarted
     enabled: yes
+  when: init_master == False
+  ignore_errors: true

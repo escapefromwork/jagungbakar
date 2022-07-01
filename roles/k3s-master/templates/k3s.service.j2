@@ -24,12 +24,10 @@ TimeoutStartSec=0
 Restart=always
 RestartSec=5s
 ExecStart=/usr/local/bin/k3s server \
-{% if groups['master'] | length > 1 %}
 {% if ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) %}
     --cluster-init \
 {% else %}
     --server https://{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}:6443 \
 {% endif %}
-    --token "{{ k3s_token }}" --node-ip "{{ hostvars[inventory_hostname].ansible_host }}" --tls-san "192.168.63.100" \
-    --flannel-iface "eth1" --no-deploy servicelb --no-deploy traefik
-{% endif %}
+    --token "{{ k3s_token }}" --node-ip "{{ hostvars[inventory_hostname].ansible_host }}" --tls-san "{{ virtual_ip }}" \
+    --flannel-iface "{{ network_interface }}" --no-deploy servicelb --no-deploy traefik --node-external-ip "{{ hostvars[inventory_hostname].ansible_host }}"

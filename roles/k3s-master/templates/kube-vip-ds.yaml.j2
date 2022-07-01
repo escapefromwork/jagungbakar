@@ -5,7 +5,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kube-vip-ds
-    app.kubernetes.io/version: v0.4.4
+    app.kubernetes.io/version: {{ kube_vip_version }}
   name: kube-vip-ds
   namespace: kube-system
 spec:
@@ -17,7 +17,7 @@ spec:
       creationTimestamp: null
       labels:
         app.kubernetes.io/name: kube-vip-ds
-        app.kubernetes.io/version: v0.4.4
+        app.kubernetes.io/version: {{ kube_vip_version }}
     spec:
       affinity:
         nodeAffinity:
@@ -34,11 +34,11 @@ spec:
         - manager
         env:
         - name: vip_arp
-          value: "false"
+          value: "true"
         - name: port
           value: "6443"
         - name: vip_interface
-          value: eth1 # Changeme
+          value: {{ network_interface }} # Changeme
         - name: vip_cidr
           value: "32"
         - name: cp_enable
@@ -49,9 +49,13 @@ spec:
           value: "false"
         - name: svc_enable
           value: "true"
+        - name: vip_leaderelection
+          value: "true"
+        - name: vip_leaseduration
+          value: "15"
         - name: address
-          value: 192.168.63.100 # Changeme
-        image: ghcr.io/kube-vip/kube-vip:v0.4.4
+          value: {{ virtual_ip }} # Changeme
+        image: ghcr.io/kube-vip/kube-vip:{{ kube_vip_version }}
         imagePullPolicy: Always
         name: kube-vip
         resources: {}

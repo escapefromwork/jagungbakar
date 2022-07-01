@@ -1,2 +1,5 @@
 ---
-# defaults file for common
+kernel_tuning:
+  - br_netfilter
+  - overlay
+  - rbd
