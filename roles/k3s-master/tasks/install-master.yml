@@ -1,49 +1,62 @@
 ---
 - name: Create manifest directory
   file:
-   path: /var/lib/rancher/k3s/server/manifests
-   state: directory
-   mode: 0644
+    path: /var/lib/rancher/k3s/server/manifests
+    state: directory
+    mode: "0644"
 
 - name: Copy basic manifest
   block:
-    - name: copy kube-vip rbac
+    - name: Copy kube-vip rbac
       template:
         src: "kube-vip-rbac.yaml.j2"
         dest: "/var/lib/rancher/k3s/server/manifests/kube-vip-rbac.yaml"
-        mode: 0644
+        mode: "0644"
 
-    - name: copy kube-vip daemonset
+    - name: Copy kube-vip daemonset
       template:
-        src: "kube-vip-ds.yaml.j2" 
+        src: "kube-vip-ds.yaml.j2"
         dest: "/var/lib/rancher/k3s/server/manifests/kube-vip-ds.yaml"
+        mode: "0644"
+
+    - name: Copy kube-vip cloud controller
+      template:
+        src: "kube-vip-cloud-controller.yaml.j2"
+        dest: "/var/lib/rancher/k3s/server/manifests/kube-vip-cloud-controller.yaml"
+        mode: "0644"
+
+    - name: Copy kube-vip cloud controller configmap
+      template:
+        src: "kube-vip-cloud-controller-cm.yaml.j2"
+        dest: "/var/lib/rancher/k3s/server/manifests/kube-vip-cloud-controller-cm.yaml"
+        mode: "0644"
 
 - name: Copy k3s service file
   template:
     src: "k3s.service.j2"
     dest: "/etc/systemd/system/k3s.service"
-    mode: 0644
+    mode: "0644"
 #
-# Silly things but work
+# Silly, but it works
 #
 - name: Enable and check K3s service (init master)
   systemd:
     name: k3s
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted
-    enabled: yes
+    enabled: true
   when: init_master == True
-  ignore_errors: true
+  ignore_errors: "{{ ansible_check_mode }}"
 
-- name: pause, waiting master
+- name: Pause, waiting initial master
   pause:
     seconds: 60
 
 - name: Enable and check K3s service
   systemd:
     name: k3s
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted
-    enabled: yes
+    enabled: true
   when: init_master == False
-  ignore_errors: true
+  ignore_errors: "{{ ansible_check_mode }}"

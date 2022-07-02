@@ -1,0 +1,12 @@
+---
+# remove unused package or stuff on ubuntu eg snapd etc
+
+- name: Remove snap stuffs
+  command: "snap remove --purge {{ item }}"
+  with_items: "{{ snap_remove }}"
+  ignore_errors: true
+
+- name: Uninstall snapd package
+  apt:
+    name: snapd
+    state: absent

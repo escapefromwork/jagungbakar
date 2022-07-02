@@ -1,7 +1,7 @@
 ---
-k3s_token: "?19|story|MORE|stay|WOMEN|16?"
+k3s_token:
 
-k3s_version: v1.22.11+k3s1
 kube_vip_version: v0.4.4
 network_interface: eth0
 virtual_ip:
+cidr_loadbalancer:

@@ -49,10 +49,14 @@ spec:
           value: "false"
         - name: svc_enable
           value: "true"
+        - name : lb_enable
+          value: "true"
+{% if groups['master']|length >= 3 %}          
         - name: vip_leaderelection
           value: "true"
         - name: vip_leaseduration
           value: "15"
+{% endif %}
         - name: address
           value: {{ virtual_ip }} # Changeme
         image: ghcr.io/kube-vip/kube-vip:{{ kube_vip_version }}

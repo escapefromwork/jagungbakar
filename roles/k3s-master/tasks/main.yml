@@ -1,3 +1,2 @@
 ---
-- include: download-binary.yml
-- include: install-master.yml
+- import_tasks: install-master.yml
