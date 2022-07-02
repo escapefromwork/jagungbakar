@@ -17,6 +17,7 @@
       template:
         src: "kube-vip-ds.yaml.j2" 
         dest: "/var/lib/rancher/k3s/server/manifests/kube-vip-ds.yaml"
+        mode: 0644
 
 - name: Copy k3s service file
   template:

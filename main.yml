@@ -1,6 +1,14 @@
 ---
-- hosts: master
+- name: setup master
+  hosts: master
   become: yes
   roles:
     - common
     - k3s-master
+
+- name: setup worker
+  hosts: worker
+  become: yes
+  roles:
+    - common
+    - k3s-worker

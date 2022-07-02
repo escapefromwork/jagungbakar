@@ -1,0 +1,11 @@
+---
+exclude_paths:
+  - scripts
+
+parseable: true
+quiet: true
+
+# need fixing skip this
+skip_list:
+  - yaml[line-length]
+  - yaml[new-line-at-end-of-file]

@@ -1,2 +1,2 @@
 ---
-# tasks file for k3s-worker
+- include: install-worker.yml
