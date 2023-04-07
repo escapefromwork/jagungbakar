@@ -1,0 +1,6 @@
+---
+- import_tasks: kernel.yml
+- import_tasks: remove-unused.yml
+- import_tasks: download-binary.yml
+- import_tasks: disable-ufw.yml
+- import_tasks: sysctl.yml

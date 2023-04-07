@@ -1,0 +1,17 @@
+---
+exclude_paths:
+  - scripts
+
+parseable: true
+quiet: true
+
+# need fixing skip this
+skip_list:
+  - name[missing]
+  - name[template]
+  - fqcn
+  - package-latest
+  - yaml[line-length]
+  - yaml[new-line-at-end-of-file]
+# skip "-" on naming role
+  - role-name

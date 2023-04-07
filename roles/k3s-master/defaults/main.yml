@@ -1,0 +1,7 @@
+---
+k3s_token:
+
+kube_vip_version: v0.4.4
+network_interface: eth0
+virtual_ip:
+cidr_loadbalancer:

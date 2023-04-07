@@ -1,0 +1,10 @@
+---
+- name: Check if UFW is installed
+  stat:
+    path: /etc/ufw/ufw.conf
+  register: ufw_status
+
+- name: Disable UFW
+  ufw:
+    state: disabled
+  when: ufw_status.stat.exists

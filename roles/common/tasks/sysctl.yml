@@ -1,0 +1,10 @@
+---
+- name: Copy custom sysctl
+  ansible.builtin.template:
+    src: 90-kubelet.conf.j2
+    dest: /etc/sysctl.d/90-kubelet.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Apply sysctl settings

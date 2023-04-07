@@ -1,0 +1,12 @@
+---
+kernel_tuning:
+  - br_netfilter
+  - overlay
+  - rbd
+
+snap_remove:
+  - core20
+  - lxd
+  - snapd
+
+k3s_version: v1.22.11+k3s1
